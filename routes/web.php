@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +15,25 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Google
+Route::get('login/google', [LoginController::class, 'redirectToProviderGoogle'])->name('login.google');
+Route::get('login/google/callback', [LoginController::class, 'handleProviderCallbackGoogle']);
+
+//Linkedin
+Route::get('login/linkedin', [LoginController::class, 'redirectToProviderLinkedin'])->name('login.linkedin');
+Route::get('login/linkedin/callback', [LoginController::class, 'handleProviderCallbackLinkedin']);
+
+//Facebook
+Route::get('login/facebook', [LoginController::class, 'redirectToProviderFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [LoginController::class, 'handleProviderCallbackFacebook']);
+
+//Twitter
+Route::get('login/twitter', [LoginController::class, 'redirectToProviderTwitter'])->name('login.twitter');
+Route::get('login/twitter/callback', [LoginController::class, 'handleProviderCallbackTwitter']);

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+<a href="{{route('login.facebook')}}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">facebook</a>
+<a href="{{route('login.google')}}" class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true">google</a>
+<a href="{{route('login.linkedin')}}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">linkedin</a>
+<a href="{{route('login.twitter')}}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">twitter</a>
+
+
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
